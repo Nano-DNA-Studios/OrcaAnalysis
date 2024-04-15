@@ -22,12 +22,13 @@ namespace OrcaAnalysis.Commands
         /// </summary>
         OrcaAnalysisDataManager Data => ApplicationData<OrcaAnalysisDataManager>.Instance();
 
-
+        /// <inheritdoc/>
         public override void Execute(string[] args)
         {
             ExtractFilePath(args);
         }
 
+        /// <inheritdoc/>
         public override void ExecuteSolo(string[] args)
         {
             ExtractFilePath(args);
@@ -68,15 +69,15 @@ namespace OrcaAnalysis.Commands
 
             if (!File.Exists(fullPath))
             {
-                Console.WriteLine("Invalid File Path, Stopping Program");
+                Console.WriteLine($"Invalid File Path, Stopping Program ({fullPath})");
                 return;
             }
 
-            Data.FilePath = args[0];
+            string relativePath = Path.GetRelativePath(Directory.GetCurrentDirectory(), fullPath);
 
-            if (Path.GetFileName(Data.FilePath).Contains(TAR))
+            if (Path.GetFileName(relativePath).Contains(TAR))
             {
-                Console.WriteLine("Extracting TAR File...");
+                Console.WriteLine($"Extracting TAR File {relativePath}");
 
                 ConsoleProcessHandler commandHandler = new ConsoleProcessHandler();
 
@@ -84,13 +85,13 @@ namespace OrcaAnalysis.Commands
                     commandHandler.RunProcess("rm -rf Output");
 
                 commandHandler.RunProcess($"mkdir Output");
-                commandHandler.RunProcess($"tar -xzf {args[0]} -C Output");
+                commandHandler.RunProcess($"tar -xzf {relativePath} -C Output");
 
-                Data.FilePath = FindOutputFile("Output");
+                relativePath = FindOutputFile("Output");
             }
 
-            if (Path.GetExtension(Data.FilePath) == OUTPUT)
-                Data.OrcaOutputPath = Data.FilePath;
+            if (Path.GetExtension(relativePath) == OUTPUT)
+                Data.OrcaOutputPath = relativePath;
             else
             {
                 Console.WriteLine("Invalid File Type");

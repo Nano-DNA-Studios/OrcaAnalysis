@@ -11,11 +11,6 @@ namespace OrcaAnalysis
         public override string COMMAND_PREFIX => DEFAULT_COMMAND_PREFIX;
 
         /// <summary>
-        /// The Path to the File Submitted in the Orca Analysis Application.
-        /// </summary>
-        public string FilePath { get; set; }
-
-        /// <summary>
         /// The Path to the Orca Output File.
         /// </summary>
         public string OrcaOutputPath { get; set; }

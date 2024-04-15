@@ -15,6 +15,11 @@ namespace OrcaAnalysis
         public abstract string PythonScriptName { get; }
 
         /// <summary>
+        /// The Note to Display when Running the Script
+        /// </summary>
+        public abstract string RunScriptNote { get; }
+
+        /// <summary>
         /// Data Manager for the Orca Analysis Commands
         /// </summary>
         OrcaAnalysisDataManager Data => ApplicationData<OrcaAnalysisDataManager>.Instance();
@@ -54,6 +59,8 @@ namespace OrcaAnalysis
             ConsoleProcessHandler processHandler = new ConsoleProcessHandler();
 
             string pythonFile = Path.Combine(GetAssemblyDirectory(), $"Scripts/{PythonScriptName}.py");
+
+            Console.WriteLine(RunScriptNote + Data.OrcaOutputPath);
 
             processHandler.RunProcess($"python {pythonFile} {Data.OrcaOutputPath}");
         }
