@@ -40,6 +40,16 @@ with open(file, 'r') as f:
             frequencies.append(freq)
             intensities.append(intensity)
 
+
+# Add Fill extra data to have a better Graph
+minFreq = int(min(frequencies))
+maxFreq = int(max(frequencies))
+
+# Add 0 Intensity for every 10 cm^-1
+for i in range(minFreq, maxFreq, 10):
+    frequencies.append(i)
+    intensities.append(0)
+
 #Normalize Intensities
 frequencies = np.array(frequencies)
 intensities = np.array(intensities)
@@ -71,8 +81,8 @@ for i in range(1, len(sorted_intensity)-1):
 
 #Plot the Graph and Show
 plt.plot(sorted_freq, sorted_intensity)
-plt.xlabel('Frequency')
-plt.ylabel('Intensity')
+plt.xlabel('Wavenumber (cm^-1)')
+plt.ylabel('Intensity (%)')
 plt.title(fileName.split(".")[0] + "  (" + fullPath + ")")
 
 # Annotate peaks
