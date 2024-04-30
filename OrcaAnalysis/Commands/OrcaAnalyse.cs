@@ -1,12 +1,12 @@
 ﻿using DNA_CLI_Framework.Commands;
 using DNA_CLI_Framework.Data;
-using System.ComponentModel.Design;
-using System.Reflection;
 
 namespace OrcaAnalysis.Commands
 {
     internal class OrcaAnalyse : DefaultCommand
     {
+        private const string CACHEFOLDER = "OrcaCache";
+
         /// <summary>
         /// The File Extension for TAR Files / Archive Files
         /// </summary>
@@ -53,7 +53,7 @@ namespace OrcaAnalysis.Commands
             {
                 string foundFile = FindOutputFile(directory);
                 if (!string.IsNullOrEmpty(foundFile))
-                    return foundFile; 
+                    return foundFile;
             }
 
             return string.Empty;
@@ -81,13 +81,13 @@ namespace OrcaAnalysis.Commands
 
                 ConsoleProcessHandler commandHandler = new ConsoleProcessHandler();
 
-                if (Directory.Exists("Output"))
-                    commandHandler.RunProcess("rm -rf Output");
+                if (Directory.Exists(CACHEFOLDER))
+                    commandHandler.RunProcess($"rm -rf {CACHEFOLDER}");
 
                 commandHandler.RunProcess($"mkdir Output");
-                commandHandler.RunProcess($"tar -xzf {relativePath} -C Output");
+                commandHandler.RunProcess($"tar -xzf {relativePath} -C {CACHEFOLDER}");
 
-                relativePath = FindOutputFile("Output");
+                relativePath = FindOutputFile(CACHEFOLDER);
             }
 
             if (Path.GetExtension(relativePath) == OUTPUT)
