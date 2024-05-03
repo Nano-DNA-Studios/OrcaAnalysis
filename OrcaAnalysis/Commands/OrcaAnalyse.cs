@@ -13,6 +13,11 @@ namespace OrcaAnalysis.Commands
         private const string TAR = ".tar.gz";
 
         /// <summary>
+        /// The File Extension for Orca Input Files
+        /// </summary>
+        private const string INPUT = ".inp";
+
+        /// <summary>
         /// The File Extension for Orca Output Files
         /// </summary>
         private const string OUTPUT = ".out";
@@ -75,20 +80,11 @@ namespace OrcaAnalysis.Commands
 
             string relativePath = Path.GetRelativePath(Directory.GetCurrentDirectory(), fullPath);
 
+            if (Path.GetExtension(relativePath) == INPUT)
+                relativePath = RunCalculation(relativePath);
+
             if (Path.GetFileName(relativePath).Contains(TAR))
-            {
-                Console.WriteLine($"Extracting TAR File {relativePath}");
-
-                ConsoleProcessHandler commandHandler = new ConsoleProcessHandler();
-
-                if (Directory.Exists(CACHEFOLDER))
-                    commandHandler.RunProcess($"rm -rf {CACHEFOLDER}");
-
-                commandHandler.RunProcess($"mkdir Output");
-                commandHandler.RunProcess($"tar -xzf {relativePath} -C {CACHEFOLDER}");
-
-                relativePath = FindOutputFile(CACHEFOLDER);
-            }
+                relativePath = ExtractTarFile(relativePath);
 
             if (Path.GetExtension(relativePath) == OUTPUT)
                 Data.OrcaOutputPath = relativePath;
@@ -97,6 +93,58 @@ namespace OrcaAnalysis.Commands
                 Console.WriteLine("Invalid File Type");
                 return;
             }
+        }
+
+        /// <summary>
+        /// Runs a Docker Container that will run a Orca Calculation. Once complete, the Output File will be returned.
+        /// </summary>
+        /// <param name="relativePath"> The Relative Path to the Input File </param>
+        /// <returns> The Path to the Output File </returns>
+        private string RunCalculation(string relativePath)
+        {
+            Console.WriteLine($"Running Orca Calculation on {relativePath}");
+
+            ConsoleProcessHandler commandHandler = new ConsoleProcessHandler(ConsoleProcessHandler.ProcessApplication.PowerShell);
+
+            string fileName = Path.GetFileNameWithoutExtension(relativePath);
+            string containerName = $"orca_{fileName.ToLower()}";
+            string dockerRunCommand = "docker run";
+            string cacheVolume1 = $"-v '{Directory.GetCurrentDirectory()}/OrcaCache:/home/orca/calculationData'";
+            string cacheVolume2 = $"-v '{Directory.GetCurrentDirectory()}:/data'";
+            string setContainerName = $"--name {containerName}";
+            string dockerImage = "mrdnalex/orca";
+            string bashCommand = "/bin/bash -c";
+            string createFolder = $"mkdir /home/orca/calculationData/{fileName}";
+            string copyFile = $"cp /data/{relativePath.Replace("\\", "/")} /home/orca/calculationData/{fileName}";
+            string runOrca = $"/Orca/orca /home/orca/calculationData/{fileName}/{fileName}.inp 2>&1 | tee -a /home/orca/calculationData/{fileName}/{fileName}.out";
+            string fullCommand = $"{dockerRunCommand} {cacheVolume1} {cacheVolume2} {setContainerName} {dockerImage} {bashCommand} '{createFolder} && {copyFile} && {runOrca}'";
+
+            if (Directory.Exists($"{CACHEFOLDER}/{fileName}"))
+                Directory.Delete($"{CACHEFOLDER}/{fileName}", true);
+
+            commandHandler.RunProcess(fullCommand);
+            commandHandler.RunProcess($"docker rm {containerName}");
+
+            return FindOutputFile($"{CACHEFOLDER}/{fileName}");
+        }
+
+        /// <summary>
+        /// Extracts the TAR File and it's contents to the Cache Folder
+        /// </summary>
+        /// <param name="relativePath"> The relative Path to the TAR File </param>
+        /// <returns> The Relative Path to the Extracted Output File </returns>
+        private string ExtractTarFile(string relativePath)
+        {
+            Console.WriteLine($"Extracting TAR File {relativePath}");
+
+            ConsoleProcessHandler commandHandler = new ConsoleProcessHandler(ConsoleProcessHandler.ProcessApplication.CMD);
+
+            if (!Directory.Exists(CACHEFOLDER))
+                commandHandler.RunProcess($"mkdir {CACHEFOLDER}");
+
+            commandHandler.RunProcess($"tar -xzf {relativePath} -C {CACHEFOLDER}");
+
+            return FindOutputFile(CACHEFOLDER);
         }
     }
 }

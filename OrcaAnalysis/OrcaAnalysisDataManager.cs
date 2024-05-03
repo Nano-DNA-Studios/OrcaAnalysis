@@ -14,5 +14,10 @@ namespace OrcaAnalysis
         /// The Path to the Orca Output File.
         /// </summary>
         public string OrcaOutputPath { get; set; }
+
+        /// <summary>
+        /// The Path to the Orca Input File.
+        /// </summary>
+        public string OrcaInputPath { get; set; }
     }
 }

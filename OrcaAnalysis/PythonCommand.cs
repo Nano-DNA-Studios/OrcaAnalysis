@@ -56,7 +56,7 @@ namespace OrcaAnalysis
         /// </summary>
         private void RunPythonScript()
         {
-            ConsoleProcessHandler processHandler = new ConsoleProcessHandler();
+            ConsoleProcessHandler processHandler = new ConsoleProcessHandler(ConsoleProcessHandler.ProcessApplication.CMD);
 
             string pythonFile = Path.Combine(GetAssemblyDirectory(), $"Scripts/{PythonScriptName}.py");
 
