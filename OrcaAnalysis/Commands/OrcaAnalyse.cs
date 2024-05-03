@@ -139,12 +139,18 @@ namespace OrcaAnalysis.Commands
 
             ConsoleProcessHandler commandHandler = new ConsoleProcessHandler(ConsoleProcessHandler.ProcessApplication.CMD);
 
+            string extractionPath = Path.Combine(CACHEFOLDER, "Extract");
+
             if (!Directory.Exists(CACHEFOLDER))
                 commandHandler.RunProcess($"mkdir {CACHEFOLDER}");
 
-            commandHandler.RunProcess($"tar -xzf {relativePath} -C {CACHEFOLDER}");
+            if (Directory.Exists(extractionPath))
+                Directory.Delete(extractionPath, true);
 
-            return FindOutputFile(CACHEFOLDER);
+            commandHandler.RunProcess($"mkdir {extractionPath}");
+            commandHandler.RunProcess($"tar -xzf {relativePath} -C {extractionPath}");
+
+            return FindOutputFile(extractionPath);
         }
     }
 }

@@ -14,6 +14,8 @@
 		<Version>1.0.4</Version>
 		<Authors>MrDNA</Authors>
 		<Company>NanoDNA Studios</Company>
+		<DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+		<DockerfileContext>.</DockerfileContext>
 	</PropertyGroup>
 
 	<ItemGroup>
