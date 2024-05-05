@@ -148,7 +148,15 @@ namespace OrcaAnalysis.Commands
             commandHandler.RunProcess($"mkdir {extractionPath}");
             commandHandler.RunProcess($"tar -xzf {relativePath} -C {extractionPath}");
 
-            return FindOutputFile(extractionPath);
+            string folder = Directory.GetDirectories(extractionPath)[0];
+            string copiedFolder = Path.Combine(Data.CacheFolder, Path.GetFileName(folder));
+
+            commandHandler.RunProcess($"cp -r {folder} '{Path.Combine(Directory.GetCurrentDirectory(), Data.CacheFolder)}'");
+
+            if (Directory.Exists(extractionPath))
+                Directory.Delete(extractionPath, true);
+
+            return FindOutputFile(copiedFolder);
         }
     }
 }
