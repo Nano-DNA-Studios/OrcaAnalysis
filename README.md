@@ -24,6 +24,14 @@ Commands can be used using the Following method
 orcaanalysis path/to/file/or/folder --CommandName1 commandArg1 commandArg2 ... --CommandName2 commandArg1 commandArg2
 ```
 
+### Setup
+Sets up your device to be ready for all file input cases. At the moment it just downloads a Docker Container from the Web Used for Orca Calculations on your device. (Be wary, the container is ~35GB Large)
+This command is meant to not be used with a input path, it should be it's own standalone command.
+
+#### Usage
+```
+orcaanalysis --Setup
+```
 
 ### IR Spectrum
 Plots the Estimated IR Spectrum Calculated by Orca.
@@ -32,6 +40,7 @@ Plots the Estimated IR Spectrum Calculated by Orca.
 ```
 orcaanalysis path/to/file/or/folder --IRSpectrum
 ```
+
 
 ## Creator
 Created by [MrDNAlex](https://github.com/MrDNAlex)
