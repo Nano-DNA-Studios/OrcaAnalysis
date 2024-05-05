@@ -5,6 +5,7 @@
 		<TargetFramework>net8.0</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 
 		<PackAsTool>true</PackAsTool>
 		<ToolCommandName>orcaanalysis</ToolCommandName>
@@ -17,6 +18,10 @@
 		<DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
 		<DockerfileContext>.</DockerfileContext>
 	</PropertyGroup>
+
+	<ItemGroup>
+		<None Include="..\README.md" Pack="true" PackagePath=""/>
+	</ItemGroup>
 
 	<ItemGroup>
 		<Reference Include="DNA-CLI-Framework">
