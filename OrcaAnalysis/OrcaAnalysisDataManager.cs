@@ -5,7 +5,7 @@ namespace OrcaAnalysis
     /// <summary>
     /// The Data Manager for the Orca Analysis application.
     /// </summary>
-    public class OrcaAnalysisDataManager : DataManager
+    internal class OrcaAnalysisDataManager : DataManager
     {
         /// <summary>
         /// 
