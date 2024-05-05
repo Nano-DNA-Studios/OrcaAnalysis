@@ -33,6 +33,7 @@ This command is meant to not be used with a input path, it should be it's own st
 orcaanalysis --Setup
 ```
 
+
 ### IR Spectrum
 Plots the Estimated IR Spectrum Calculated by Orca.
 
