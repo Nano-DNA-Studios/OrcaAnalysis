@@ -145,8 +145,17 @@ namespace OrcaAnalysis.Commands
             if (Directory.Exists(extractionPath))
                 Directory.Delete(extractionPath, true);
 
+            List<string> foldersAndFiles = new List<string>();
+            foldersAndFiles.AddRange(Directory.GetDirectories(Data.CacheFolder));
+            foldersAndFiles.AddRange(Directory.GetFiles(Data.CacheFolder));
+
             commandHandler.RunProcess($"mkdir {extractionPath}");
             commandHandler.RunProcess($"tar -xzf {relativePath} -C {extractionPath}");
+
+            string[] folders = Directory.GetDirectories(extractionPath);
+
+            foreach (string folder in folders)
+                commandHandler.RunProcess($"cp -r {folder} '{Path.Combine(Directory.GetCurrentDirectory(), Data.CacheFolder)}'");
 
             return FindOutputFile(extractionPath);
         }
