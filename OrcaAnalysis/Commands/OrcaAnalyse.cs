@@ -3,10 +3,11 @@ using DNA_CLI_Framework.Data;
 
 namespace OrcaAnalysis.Commands
 {
+    /// <summary>
+    /// Default Command for the Orca Analysis Application.
+    /// </summary>
     internal class OrcaAnalyse : DefaultCommand
     {
-        private const string CACHEFOLDER = "OrcaCache";
-
         /// <summary>
         /// The File Extension for TAR Files / Archive Files
         /// </summary>
@@ -25,7 +26,7 @@ namespace OrcaAnalysis.Commands
         /// <summary>
         /// Data Manager for the Orca Analysis Commands
         /// </summary>
-        OrcaAnalysisDataManager Data => ApplicationData<OrcaAnalysisDataManager>.Instance();
+        public OrcaAnalysisDataManager Data => ApplicationData<OrcaAnalysisDataManager>.Instance();
 
         /// <inheritdoc/>
         public override void Execute(string[] args)
@@ -89,10 +90,7 @@ namespace OrcaAnalysis.Commands
             if (Path.GetExtension(relativePath) == OUTPUT)
                 Data.OrcaOutputPath = relativePath;
             else
-            {
                 Console.WriteLine("Invalid File Type");
-                return;
-            }
         }
 
         /// <summary>
@@ -119,13 +117,13 @@ namespace OrcaAnalysis.Commands
             string runOrca = $"/Orca/orca /home/orca/calculationData/{fileName}/{fileName}.inp 2>&1 | tee -a /home/orca/calculationData/{fileName}/{fileName}.out";
             string fullCommand = $"{dockerRunCommand} {cacheVolume1} {cacheVolume2} {setContainerName} {dockerImage} {bashCommand} '{createFolder} && {copyFile} && {runOrca}'";
 
-            if (Directory.Exists($"{CACHEFOLDER}/{fileName}"))
-                Directory.Delete($"{CACHEFOLDER}/{fileName}", true);
+            if (Directory.Exists($"{Data.CacheFolder}/{fileName}"))
+                Directory.Delete($"{Data.CacheFolder}/{fileName}", true);
 
             commandHandler.RunProcess(fullCommand);
             commandHandler.RunProcess($"docker rm {containerName}");
 
-            return FindOutputFile($"{CACHEFOLDER}/{fileName}");
+            return FindOutputFile($"{Data.CacheFolder}/{fileName}");
         }
 
         /// <summary>
@@ -139,10 +137,10 @@ namespace OrcaAnalysis.Commands
 
             ConsoleProcessHandler commandHandler = new ConsoleProcessHandler(ConsoleProcessHandler.ProcessApplication.CMD);
 
-            string extractionPath = Path.Combine(CACHEFOLDER, "Extract");
+            string extractionPath = Path.Combine(Data.CacheFolder, "Extract");
 
-            if (!Directory.Exists(CACHEFOLDER))
-                commandHandler.RunProcess($"mkdir {CACHEFOLDER}");
+            if (!Directory.Exists(Data.CacheFolder))
+                commandHandler.RunProcess($"mkdir {Data.CacheFolder}");
 
             if (Directory.Exists(extractionPath))
                 Directory.Delete(extractionPath, true);

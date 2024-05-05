@@ -16,13 +16,12 @@ namespace OrcaAnalysis.Commands
         public override string CommandName => "Setup";
 
         /// <inheritdoc/>
-        public override string CommandDescription => "Sets up the Orca Analysis Application";
+        public override string CommandDescription => "Sets up the Orca Analysis Application by downloading the Orca Docker Image.";
 
         /// <inheritdoc/>
         public override void Execute(string[] args)
         {
             ConsoleProcessHandler consoleProcessHandler = new ConsoleProcessHandler(ConsoleProcessHandler.ProcessApplication.CMD);
-
             consoleProcessHandler.RunProcess($"docker pull {_dockerImage}");
         }
     }
