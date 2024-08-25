@@ -4,26 +4,43 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 17.9.34714.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OrcaAnalysis", "OrcaAnalysis.csproj", "{890D8732-E70E-408C-A0C7-838AECB877C7}"
-	ProjectSection(ProjectDependencies) = postProject
-		{9CD5B98A-6A4D-40CE-8915-40DDDAFE23C5} = {9CD5B98A-6A4D-40CE-8915-40DDDAFE23C5}
-	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNA-CLI-Framework", "..\..\DNA-CLI-Framework\DNA-CLI-Framework\DNA-CLI-Framework.csproj", "{9CD5B98A-6A4D-40CE-8915-40DDDAFE23C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DNA-CLI-Framework", "..\..\..\..\NanoDNA Studios\Programming\DNA-CLI-Framework\DNA-CLI-Framework\DNA-CLI-Framework.csproj", "{CBCC9EE2-9604-4980-95A2-B93FF155E01E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
 		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{890D8732-E70E-408C-A0C7-838AECB877C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{890D8732-E70E-408C-A0C7-838AECB877C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{890D8732-E70E-408C-A0C7-838AECB877C7}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{890D8732-E70E-408C-A0C7-838AECB877C7}.Debug|x64.Build.0 = Debug|Any CPU
+		{890D8732-E70E-408C-A0C7-838AECB877C7}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{890D8732-E70E-408C-A0C7-838AECB877C7}.Debug|x86.Build.0 = Debug|Any CPU
 		{890D8732-E70E-408C-A0C7-838AECB877C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{890D8732-E70E-408C-A0C7-838AECB877C7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9CD5B98A-6A4D-40CE-8915-40DDDAFE23C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9CD5B98A-6A4D-40CE-8915-40DDDAFE23C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9CD5B98A-6A4D-40CE-8915-40DDDAFE23C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9CD5B98A-6A4D-40CE-8915-40DDDAFE23C5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{890D8732-E70E-408C-A0C7-838AECB877C7}.Release|x64.ActiveCfg = Release|Any CPU
+		{890D8732-E70E-408C-A0C7-838AECB877C7}.Release|x64.Build.0 = Release|Any CPU
+		{890D8732-E70E-408C-A0C7-838AECB877C7}.Release|x86.ActiveCfg = Release|Any CPU
+		{890D8732-E70E-408C-A0C7-838AECB877C7}.Release|x86.Build.0 = Release|Any CPU
+		{CBCC9EE2-9604-4980-95A2-B93FF155E01E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBCC9EE2-9604-4980-95A2-B93FF155E01E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBCC9EE2-9604-4980-95A2-B93FF155E01E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{CBCC9EE2-9604-4980-95A2-B93FF155E01E}.Debug|x64.Build.0 = Debug|Any CPU
+		{CBCC9EE2-9604-4980-95A2-B93FF155E01E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{CBCC9EE2-9604-4980-95A2-B93FF155E01E}.Debug|x86.Build.0 = Debug|Any CPU
+		{CBCC9EE2-9604-4980-95A2-B93FF155E01E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBCC9EE2-9604-4980-95A2-B93FF155E01E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBCC9EE2-9604-4980-95A2-B93FF155E01E}.Release|x64.ActiveCfg = Release|Any CPU
+		{CBCC9EE2-9604-4980-95A2-B93FF155E01E}.Release|x64.Build.0 = Release|Any CPU
+		{CBCC9EE2-9604-4980-95A2-B93FF155E01E}.Release|x86.ActiveCfg = Release|Any CPU
+		{CBCC9EE2-9604-4980-95A2-B93FF155E01E}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

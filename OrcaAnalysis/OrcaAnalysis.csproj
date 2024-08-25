@@ -24,7 +24,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\..\DNA-CLI-Framework\DNA-CLI-Framework\DNA-CLI-Framework.csproj" />
+	  <ProjectReference Include="..\..\..\..\NanoDNA Studios\Programming\DNA-CLI-Framework\DNA-CLI-Framework\DNA-CLI-Framework.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
